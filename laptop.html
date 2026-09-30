@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laptops | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body { background: #050505; color: #f5dca2; }
+    .cat-page { max-width: 1180px; margin: 30px auto 60px; padding: 0 18px; }
+    .hero-panel { background: linear-gradient(135deg, rgba(20, 20, 20, 0.98), rgba(52, 39, 18, 0.96), rgba(12, 12, 12, 1)); color: #f5dca2; border: 1px solid rgba(215, 169, 84, 0.2); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 12px 30px rgba(0,0,0,0.22); }
+    .hero-panel h1 { font-size: 1.8rem; margin-bottom: 8px; color: #f8f1d6; }
+    .hero-panel p { opacity: 0.95; color: #d9c497; }
+    .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .mini-product { background: rgba(12, 12, 12, 0.96); border: 1px solid rgba(215, 169, 84, 0.18); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 24px rgba(0,0,0,0.18); }
+    .mini-product img { width: 100%; height: 180px; object-fit: contain; padding: 12px; background: linear-gradient(135deg, rgba(18, 18, 18, 0.98), rgba(45, 34, 18, 0.96)); }
+    .mini-body { padding: 16px; }
+    .mini-body h3 { margin-bottom: 6px; color: #f8f1d6; }
+    .mini-body p { color: #f5dca2; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="cat-page">
+    <section class="hero-panel">
+      <h1>Laptop collection</h1>
+      <p>Choose powerful laptops built for work, study, creativity, and gaming with smooth performance.</p>
+    </section>
+
+    <section class="product-list">
+      <article class="mini-product">
+        <img src="images/laptop.png" alt="HP Laptop">
+        <div class="mini-body">
+          <h3>HP Laptop</h3>
+          <p>₹59,999</p>
+        </div>
+      </article>
+      <article class="mini-product">
+        <img src="images/laptop.png" alt="MacBook Air">
+        <div class="mini-body">
+          <h3>MacBook Air</h3>
+          <p>₹1,09,999</p>
+        </div>
+      </article>
+      <article class="mini-product">
+        <img src="images/laptop.png" alt="Acer Gaming">
+        <div class="mini-body">
+          <h3>Acer Gaming</h3>
+          <p>₹74,999</p>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

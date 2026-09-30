@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script src="js/site.js" defer></script>
+  <script src="js/script.js?v=8" defer></script>
+</head>
+<body>
+  <div class="promo-bar">Free shipping on orders above ₹999 • New collection live now</div>
+
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <form class="searchbar" id="search-form" role="search">
+        <input id="search" type="text" placeholder="Search products..." aria-label="Search products">
+        <button type="submit" class="search-btn" aria-label="Search products"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="section product-banner">
+      <div class="container banner-content">
+        <div>
+          <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Fresh picks</span>
+          <h1>Discover products that fit your lifestyle.</h1>
+        </div>
+        <a class="btn primary" href="index.html">Back to home</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="shop-toolbar">
+          <div class="tag-group">
+            <span class="tag active" data-filter="all" onclick="applyShopFilter('all')">All</span>
+            <span class="tag" data-filter="mobiles" onclick="applyShopFilter('mobiles')">Mobiles</span>
+            <span class="tag" data-filter="fashion" onclick="applyShopFilter('fashion')">Fashion</span>
+            <span class="tag" data-filter="laptops" onclick="applyShopFilter('laptops')">Laptops</span>
+            <span class="tag" data-filter="beauty" onclick="applyShopFilter('beauty')">Beauty</span>
+            <span class="tag" data-filter="shoes" onclick="applyShopFilter('shoes')">Shoes</span>
+            <span class="tag" data-filter="watches" onclick="applyShopFilter('watches')">Watches</span>
+          </div>
+          <div class="sort-box">
+            <i class="fa-solid fa-arrow-up-short-wide"></i>
+            <label for="product-sort">Sort:</label>
+            <select id="product-sort" aria-label="Sort products">
+              <option value="popular">Popular</option>
+              <option value="price-low">Price: Low to high</option>
+              <option value="price-high">Price: High to low</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card" data-link="product-details.html" data-name="iPhone 16 Pro" data-keywords="iphone mobile phone smartphone apple" data-search-group="mobiles">
+            <img src="images/iphone.jpg" alt="iPhone 16 Pro">
+            <div class="product-body">
+              <h3>iPhone 16 Pro</h3>
+              <p>₹1,29,999</p>
+              <div class="product-actions">
+                <button class="add-cart" data-name="iPhone 16 Pro">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+                <button class="buy-now" data-name="iPhone 16 Pro">Buy now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Samsung Galaxy A35" data-keywords="samsung galaxy mobile phone smartphone" data-search-group="mobiles">
+            <img src="images/mobile2.png" alt="Samsung Galaxy A35">
+            <div class="product-body">
+              <h3>Samsung Galaxy A35</h3>
+              <p>₹28,999</p>
+              <div class="product-actions">
+                <button class="add-cart" data-name="Samsung Galaxy A35">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+                <button class="buy-now" data-name="Samsung Galaxy A35">Buy now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="OnePlus Nord" data-keywords="oneplus nord phone mobile android" data-search-group="mobiles">
+            <img src="images/mobile3.png" alt="OnePlus Nord">
+            <div class="product-body">
+              <h3>OnePlus Nord</h3>
+              <p>₹29,999</p>
+              <div class="product-actions">
+                <button class="add-cart" data-name="OnePlus Nord">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+                <button class="buy-now" data-name="OnePlus Nord">Buy now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Xiaomi Redmi" data-keywords="xiaomi redmi mobile smartphone" data-search-group="mobiles">
+            <img src="images/mobile4.png" alt="Xiaomi Redmi">
+            <div class="product-body">
+              <h3>Xiaomi Redmi</h3>
+              <p>₹18,999</p>
+              <div class="product-actions">
+                <button class="add-cart" data-name="Xiaomi Redmi">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+                <button class="buy-now" data-name="Xiaomi Redmi">Buy now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Gaming Headset" data-keywords="gaming headset audio accessory" data-search-group="accessory">
+            <img src="images/headphone.png" alt="Gaming Headset">
+            <div class="product-body">
+              <h3>Gaming Headset</h3>
+              <p>₹3,999</p>
+              <div class="product-actions">
+                <button data-name="Gaming Headset">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Airbuds Pro" data-keywords="airbuds wireless earbuds audio" data-search-group="accessory">
+            <img src="images/earbuds.png" alt="Airbuds Pro">
+            <div class="product-body">
+              <h3>Airbuds Pro</h3>
+              <p>₹2,499</p>
+              <div class="product-actions">
+                <button data-name="Airbuds Pro">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Luxury Perfume" data-keywords="perfume fragrance beauty gift" data-search-group="beauty">
+            <img src="images/perfume.png" alt="Luxury Perfume">
+            <div class="product-body">
+              <h3>Luxury Perfume</h3>
+              <p>₹2,999</p>
+              <div class="product-actions">
+                <button data-name="Luxury Perfume">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Mirrorless Camera" data-keywords="camera photography premium gadget" data-search-group="general">
+            <img src="images/camera.png" alt="Mirrorless Camera">
+            <div class="product-body">
+              <h3>Mirrorless Camera</h3>
+              <p>₹54,999</p>
+              <div class="product-actions">
+                <button data-name="Mirrorless Camera">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Running Sneakers" data-keywords="running sneakers shoes sporty fashion" data-search-group="fashion">
+            <img src="images/shoes.png" alt="Running Sneakers">
+            <div class="product-body">
+              <h3>Running Sneakers</h3>
+              <p>₹5,499</p>
+              <div class="product-actions">
+                <button data-name="Running Sneakers">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Smart Watch Pro" data-keywords="watch smartwatch wearable accessory" data-search-group="accessories">
+            <img src="images/watch.png" alt="Smart Watch Pro">
+            <div class="product-body">
+              <h3>Smart Watch Pro</h3>
+              <p>₹4,999</p>
+              <div class="product-actions">
+                <button data-name="Smart Watch Pro">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Casual Fashion Wear" data-keywords="fashion wear casual clothing" data-search-group="fashion">
+            <img src="images/fashion.png" alt="Casual Fashion Wear">
+            <div class="product-body">
+              <h3>Casual Fashion Wear</h3>
+              <p>₹1,299</p>
+              <div class="product-actions">
+                <button data-name="Casual Fashion Wear">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-link="product-details.html" data-name="Premium Laptop" data-keywords="laptop computer premium office" data-search-group="laptops">
+            <img src="images/laptop.png" alt="Premium Laptop">
+            <div class="product-body">
+              <h3>Premium Laptop</h3>
+              <p>₹54,999</p>
+              <div class="product-actions">
+                <button data-name="Premium Laptop">Add to cart</button>
+                <a class="link-btn" href="product-details.html">Details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3><i class="fa-solid fa-cart-shopping"></i> ShopEase</h3>
+        <p>Modern shopping made simple, stylish and secure.</p>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+
+      <script>
+        function applyShopFilter(category) {
+          const cards = document.querySelectorAll('.product-card');
+          const tags = document.querySelectorAll('.tag');
+
+          tags.forEach((tag) => {
+            tag.classList.toggle('active', tag.dataset.filter === category);
+          });
+
+          cards.forEach((card) => {
+            const group = (card.getAttribute('data-search-group') || '').toLowerCase();
+            const text = `${card.getAttribute('data-name') || ''} ${card.getAttribute('data-keywords') || ''} ${card.querySelector('h3')?.textContent || ''}`.toLowerCase();
+            const matches = category === 'all'
+              || (category === 'mobiles' && (group === 'mobiles' || group === 'mobile-model' || /mobile|phone|smartphone|iphone|samsung|galaxy|oneplus|xiaomi|redmi|android/.test(text)))
+              || (category === 'laptops' && (group === 'laptops' || /laptop|computer|notebook|macbook/.test(text)))
+              || (category === 'beauty' && (group === 'beauty' || /perfume|beauty|cosmetic|fragrance/.test(text)))
+              || (category === 'fashion' && (group === 'fashion' || /fashion|sneaker|shoes|wear|clothing|dress/.test(text)))
+              || (category === 'shoes' && /shoe|sneaker|sandal|footwear/.test(text))
+              || (category === 'watches' && /watch|wearable/.test(text))
+              || (category === 'accessories' && (group === 'accessories' || group === 'accessory' || /earbud|headset|watch|charger|case|speaker|accessory/.test(text)));
+            card.style.display = matches ? '' : 'none';
+          });
+        }
+      </script>
+
+      <div>
+        <h3>Contact Us</h3>
+        <ul>
+          <li><i class="fa-solid fa-envelope"></i> sangitabhutia74@gmail.com</li>
+          <li><i class="fa-solid fa-phone"></i> +91 8984780868</li>
+          <li><i class="fa-solid fa-location-dot"></i> Bhubaneswar, Odisha</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 ShopEase. All Rights Reserved.</p>
+      <div>
+        <a href="#">Privacy Policy</a>
+        <span> | </span>
+        <a href="#">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+</body>
+</html>

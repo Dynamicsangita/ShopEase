@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contact | ShopEase</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  body { background: #050505; color: #f5dca2; }
+  .contact { max-width: 800px; margin: 40px auto; padding: 20px; }
+  .box { background: rgba(12, 12, 12, 0.96); border: 1px solid rgba(215, 169, 84, 0.18); border-radius: 12px; padding: 24px; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+  .box h2 { color: #f8f1d6; margin-bottom: 16px; }
+  input, textarea { width: 100%; padding: 12px 14px; border: 1px solid rgba(215, 169, 84, 0.2); border-radius: 10px; margin-bottom: 12px; background: #101010; color: #f8f1d6; }
+  input::placeholder, textarea::placeholder { color: rgba(248, 241, 214, 0.7); }
+  button { background: linear-gradient(135deg, #f4dca2 0%, #d7a954 32%, #b8832d 100%); color: #120f0b; padding: 12px 16px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; }
+  .contact-form label { display: block; margin: 4px 0 6px; color: #ead9ae; font-size: .82rem; font-weight: 700; }
+  .contact-status { display: none; margin-top: 14px; padding: 10px 12px; border-radius: 9px; font-size: .82rem; }
+  .contact-status.success { display: block; background: rgba(215, 169, 84, .14); color: #f5dca2; border: 1px solid rgba(215, 169, 84, .24); }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: rgba(0,0,0,0.9); }
+  nav ul { display: flex; gap: 18px; list-style: none; }
+  nav a { color: #f5dca2; text-decoration: none; }
+  .logo { color: #f5dca2; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="logo"><i class="fa-solid fa-cart-shopping"></i> ShopEase</div><ul><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+<div class="contact"><div class="box"><h2>Contact Us</h2><form class="contact-form" id="contact-form"><label for="contact-name">Your name</label><input id="contact-name" type="text" placeholder="Your Name" required><label for="contact-email">Your email</label><input id="contact-email" type="email" placeholder="Your Email" required><label for="contact-message">Your message</label><textarea id="contact-message" rows="5" placeholder="How can we help?" required></textarea><button type="submit">Send Message</button><p id="contact-status" class="contact-status" role="status"></p></form></div></div>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

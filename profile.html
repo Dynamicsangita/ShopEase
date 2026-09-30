@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profile | ShopEase</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+	<div class="promo-bar">Your ShopEase account, all in one place</div>
+
+	<header class="navbar">
+		<div class="container nav-wrap">
+			<a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="orders.html">Orders</a></li>
+				<li><a href="profile.html">Profile</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main class="page-shell">
+		<section class="section">
+			<div class="container profile-page">
+				<div class="profile-hero">
+					<div class="profile-avatar" id="profile-avatar">RS</div>
+					<div>
+						<span class="eyebrow">Welcome back</span>
+						<h1 id="profile-heading">Rahul Sharma</h1>
+						<p id="profile-email">rahul@example.com</p>
+					</div>
+					<span class="profile-member"><i class="fa-solid fa-star"></i> ShopEase member</span>
+				</div>
+
+				<div class="profile-grid">
+					<section class="profile-card profile-details-card">
+						<div class="profile-card-heading"><div><h2>Personal details</h2><p>Keep your contact information up to date.</p></div><i class="fa-regular fa-id-card"></i></div>
+						<form id="profile-form" class="profile-form">
+							<div class="profile-field"><label for="profile-name">Full name</label><input id="profile-name" type="text" value="Rahul Sharma" required></div>
+							<div class="profile-field"><label for="profile-email-input">Email address</label><input id="profile-email-input" type="email" value="rahul@example.com" required></div>
+							<div class="profile-field"><label for="profile-phone">Mobile number</label><input id="profile-phone" type="tel" value="+91 9876543210" required></div>
+							<button class="btn primary" type="submit">Save changes <i class="fa-solid fa-check"></i></button>
+							<p id="profile-message" class="profile-message" role="status"></p>
+						</form>
+					</section>
+
+					<section class="profile-card address-card">
+						<div class="profile-card-heading"><div><h2>Saved address</h2><p>Use this address at checkout.</p></div><i class="fa-solid fa-location-dot"></i></div>
+						<div class="address-box"><strong id="address-name">Rahul Sharma</strong><p id="address-text">Bhubaneswar, Odisha<br>India · 751001</p><span><i class="fa-solid fa-house"></i> Home</span></div>
+						<a class="profile-text-link" href="checkout.html">Use at checkout <i class="fa-solid fa-arrow-right"></i></a>
+					</section>
+				</div>
+
+				<div class="profile-shortcuts">
+					<a href="orders.html"><i class="fa-solid fa-box"></i><span><strong>My orders</strong><small>Track purchases and delivery</small></span><i class="fa-solid fa-arrow-right shortcut-arrow"></i></a>
+					<a href="wishlist.html"><i class="fa-regular fa-heart"></i><span><strong>Wishlist</strong><small>See your saved products</small></span><i class="fa-solid fa-arrow-right shortcut-arrow"></i></a>
+					<a href="cart.html"><i class="fa-solid fa-cart-shopping"></i><span><strong>Shopping cart</strong><small>Review items before checkout</small></span><i class="fa-solid fa-arrow-right shortcut-arrow"></i></a>
+				</div>
+				<button class="profile-logout" type="button" data-logout><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const profileKey = 'shopease-profile';
+		const defaultProfile = { name: 'Rahul Sharma', email: 'rahul@example.com', phone: '+91 9876543210' };
+		const profile = { ...defaultProfile, ...JSON.parse(localStorage.getItem(profileKey) || '{}') };
+		const initials = (name) => name.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase();
+		const updateProfileView = () => {
+			document.getElementById('profile-heading').textContent = profile.name;
+			document.getElementById('profile-email').textContent = profile.email;
+			document.getElementById('profile-avatar').textContent = initials(profile.name);
+			document.getElementById('address-name').textContent = profile.name;
+			document.getElementById('profile-name').value = profile.name;
+			document.getElementById('profile-email-input').value = profile.email;
+			document.getElementById('profile-phone').value = profile.phone;
+		};
+		updateProfileView();
+		document.getElementById('profile-form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			profile.name = document.getElementById('profile-name').value.trim();
+			profile.email = document.getElementById('profile-email-input').value.trim();
+			profile.phone = document.getElementById('profile-phone').value.trim();
+			localStorage.setItem(profileKey, JSON.stringify(profile));
+			updateProfileView();
+			const message = document.getElementById('profile-message');
+			message.textContent = 'Profile updated successfully.';
+			message.className = 'profile-message success';
+		});
+	</script>
+	<script src="js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wishlist | ShopEase</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+	<div class="promo-bar">Save the things you love for later</div>
+	<header class="navbar">
+		<div class="container nav-wrap">
+			<a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="cart.html">Cart</a></li>
+				<li><a href="wishlist.html">Wishlist</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main class="page-shell">
+		<section class="section">
+			<div class="container wishlist-page">
+				<div class="wishlist-heading">
+					<div><span class="eyebrow">Your saved picks</span><h1>Wishlist</h1><p>Keep your favourites close until you are ready to take them home.</p></div>
+					<a class="btn primary" href="products.html"><i class="fa-solid fa-plus"></i> Discover more</a>
+				</div>
+				<div id="wishlist-grid" class="wishlist-grid"></div>
+			</div>
+		</section>
+	</main>
+
+	<div id="wishlist-toast" class="toast"></div>
+	<script>
+		const wishlistKey = 'shopease-wishlist';
+		const cartKey = 'shopease-cart';
+		const grid = document.getElementById('wishlist-grid');
+		const money = (amount) => `\u20B9${amount.toLocaleString('en-IN')}`;
+		const getWishlist = () => JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+		const showToast = (message) => { const toast = document.getElementById('wishlist-toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1800); };
+		const renderWishlist = () => {
+			const wishlist = getWishlist();
+			if (!wishlist.length) {
+				grid.innerHTML = '<div class="wishlist-empty"><div class="wishlist-empty-icon"><i class="fa-regular fa-heart"></i></div><h2>Your wishlist is waiting</h2><p>Tap the heart on any product to save it here.</p><a class="btn primary" href="products.html">Explore products</a></div>';
+				return;
+			}
+			grid.innerHTML = wishlist.map((item) => `<article class="wishlist-card"><button class="wishlist-remove" data-name="${item.name}" aria-label="Remove ${item.name}"><i class="fa-solid fa-heart"></i></button><a class="wishlist-image" href="${item.url || 'product-details.html'}"><img src="${item.image}" alt="${item.name}"></a><div class="wishlist-card-body"><span>Saved for later</span><h2>${item.name}</h2><strong>${item.price}</strong><div class="wishlist-actions"><button class="move-cart" data-name="${item.name}"><i class="fa-solid fa-cart-shopping"></i> Move to cart</button><a href="${item.url || 'product-details.html'}" class="wishlist-details">Details</a></div></div></article>`).join('');
+		};
+		grid.addEventListener('click', (event) => {
+			const remove = event.target.closest('.wishlist-remove');
+			const move = event.target.closest('.move-cart');
+			if (remove) {
+				localStorage.setItem(wishlistKey, JSON.stringify(getWishlist().filter((item) => item.name !== remove.dataset.name)));
+				renderWishlist(); showToast('Removed from wishlist');
+			}
+			if (move) {
+				const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+				const existing = cart.find((item) => item.name === move.dataset.name);
+				if (existing) existing.qty += 1; else cart.push({ name: move.dataset.name, qty: 1 });
+				localStorage.setItem(cartKey, JSON.stringify(cart));
+				showToast('Added to cart');
+			}
+		});
+		renderWishlist();
+	</script>
+	<script src="js/site.js" defer></script>
+</body>
+</html>

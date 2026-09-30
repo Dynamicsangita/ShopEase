@@ -1,0 +1,5 @@
+# Copy this file to jdbc.properties and update the values for your local MySQL server.
+jdbc.driver=com.mysql.cj.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/shopease?useSSL=false&serverTimezone=UTC
+jdbc.user=YOUR_MYSQL_USER
+jdbc.password=YOUR_MYSQL_PASSWORD

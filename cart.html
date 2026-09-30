@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <div class="promo-bar">Your cart is waiting for checkout</div>
+
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="section">
+      <div class="container cart-layout">
+        <div class="cart-panel">
+          <div class="cart-heading">
+            <div>
+              <span class="eyebrow">Ready when you are</span>
+              <h1>Your shopping cart</h1>
+              <p>Review your picks before moving to secure checkout.</p>
+            </div>
+            <span class="cart-count" id="cart-count">0 items</span>
+          </div>
+          <div id="cart-items" class="cart-items"></div>
+          <a class="continue-shopping" href="products.html"><i class="fa-solid fa-arrow-left"></i> Continue shopping</a>
+        </div>
+
+        <aside class="summary-panel">
+          <div class="summary-heading">
+            <h2>Order summary</h2>
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div class="summary-row"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+          <div class="summary-row"><span>Shipping</span><strong>Free</strong></div>
+          <div class="summary-row"><span>Discount</span><strong id="discount">-₹0</strong></div>
+          <div class="summary-total"><span>Total</span><strong id="cart-total">₹0</strong></div>
+          <a class="btn primary full checkout-link" href="checkout.html">Proceed to checkout <i class="fa-solid fa-arrow-right"></i></a>
+          <p class="summary-note"><i class="fa-solid fa-shield-halved"></i> Secure checkout and easy returns</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section cart-benefits-section">
+      <div class="container cart-benefits">
+        <div><i class="fa-solid fa-truck-fast"></i><span><strong>Free delivery</strong><small>On orders above ₹999</small></span></div>
+        <div><i class="fa-solid fa-rotate-left"></i><span><strong>Easy returns</strong><small>7-day return support</small></span></div>
+        <div><i class="fa-solid fa-lock"></i><span><strong>Safe payments</strong><small>Protected checkout</small></span></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const cartKey = 'shopease-cart';
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const subtotal = document.getElementById('subtotal');
+    const discount = document.getElementById('discount');
+    const cartCount = document.getElementById('cart-count');
+
+    const productCatalog = {
+      'iPhone 16 Pro': { price: 129999, image: 'images/iphone.jpg' },
+      'Samsung Galaxy A35': { price: 28999, image: 'images/mobile2.png' },
+      'OnePlus Nord': { price: 29999, image: 'images/mobile3.png' },
+      'Xiaomi Redmi': { price: 18999, image: 'images/mobile4.png' },
+      'Gaming Headset': { price: 3999, image: 'images/headphone.png' },
+      'Airbuds Pro': { price: 2499, image: 'images/earbuds.png' },
+      'Luxury Perfume': { price: 2999, image: 'images/perfume.png' },
+      'Mirrorless Camera': { price: 54999, image: 'images/camera.png' },
+      'Running Sneakers': { price: 5499, image: 'images/shoes.png' },
+      'Smart Watch Pro': { price: 4999, image: 'images/watch.png' },
+      'Casual Fashion Wear': { price: 1299, image: 'images/fashion.png' },
+      'Premium Laptop': { price: 54999, image: 'images/laptop.png' },
+      'Sandal': { price: 799, image: 'images/shoes.png' },
+      'Smart Watch': { price: 4999, image: 'images/smartwatch.jpeg' },
+      'Mobile Phone': { price: 14999, image: 'images/phone.jpg' },
+      'Fashion Wear': { price: 1499, image: 'images/fashion.png' },
+      'Women Oversize': { price: 999, image: 'images/shirt.jpg' },
+      'Lenovo Laptop': { price: 54999, image: 'images/laptop2.png' },
+      'HP Laptop': { price: 64999, image: 'images/laptop3.png' },
+      'Assus Laptop': { price: 74999, image: 'images/laptop4.png' },
+      'Bluetooth Headphone': { price: 2499, image: 'images/headphone.jpg' },
+      'Gaming Laptop': { price: 59999, image: 'images/laptop.png' },
+      'iPhone 15': { price: 79999, image: 'images/iphone.jpg' },
+      'Running Sneakers': { price: 5499, image: 'images/sneakerss.png' },
+      'Luxury Perfume 2': { price: 3499, image: 'images/perfume2.png' },
+      'Classic Sandals': { price: 1699, image: 'images/shoes.png' },
+      'Women Sneakers': { price: 1299, image: 'images/shoe.jpg' },
+      'Premium Casual Shoes': { price: 2799, image: 'images/shoeee.png' },
+      'Luxury Wrist Watch': { price: 3999, image: 'images/watch.png' },
+      'Women Sandal': { price: 999, image: 'images/sandell.png' },
+      'Samsung Galaxy': { price: 24999, image: 'images/mobile2.png' }
+    };
+
+    const formatPrice = (amount) => `₹${amount.toLocaleString('en-IN')}`;
+    const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+
+    function getProduct(name) {
+      return productCatalog[name] || { price: 0, image: 'images/iphone.jpg' };
+    }
+
+    function getCart() {
+      try {
+        return JSON.parse(localStorage.getItem(cartKey) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function updateQuantity(name, change) {
+      const cart = getCart();
+      const item = cart.find((cartItem) => cartItem.name === name);
+      if (!item) return;
+      item.qty = Math.max(1, item.qty + change);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(name) {
+      const cart = getCart().filter((item) => item.name !== name);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+      if (!cart.length) {
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <div class="empty-cart-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+            <h2>Your cart is empty</h2>
+            <p>Find something you love and it will appear here.</p>
+            <a class="btn primary" href="products.html">Explore products</a>
+          </div>`;
+        subtotal.textContent = '₹0';
+        discount.textContent = '-₹0';
+        cartTotal.textContent = '₹0';
+        return;
+      }
+
+      const itemTotal = cart.reduce((sum, item) => sum + (item.qty * getProduct(item.name).price), 0);
+      const discountAmount = Math.round(itemTotal * 0.1);
+      cartItems.innerHTML = cart.map((item) => `
+        <div class="cart-item-card">
+          <div class="cart-item-left">
+            <div class="cart-image-wrap"><img src="${getProduct(item.name).image}" alt="${escapeHtml(item.name)}"></div>
+            <div>
+              <span class="cart-item-category">ShopEase pick</span>
+              <h3>${escapeHtml(item.name)}</h3>
+              <p>${formatPrice(getProduct(item.name).price)} each</p>
+            </div>
+          </div>
+          <div class="cart-item-action">
+            <strong>${formatPrice(item.qty * getProduct(item.name).price)}</strong>
+            <div class="quantity-control" aria-label="Quantity for ${escapeHtml(item.name)}">
+              <button data-action="decrease" data-name="${escapeHtml(item.name)}" aria-label="Decrease quantity">−</button>
+              <span>${item.qty}</span>
+              <button data-action="increase" data-name="${escapeHtml(item.name)}" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="remove-btn" data-action="remove" data-name="${escapeHtml(item.name)}"><i class="fa-regular fa-trash-can"></i> Remove</button>
+          </div>
+        </div>
+      `).join('');
+
+      subtotal.textContent = formatPrice(itemTotal);
+      discount.textContent = `-${formatPrice(discountAmount)}`;
+      cartTotal.textContent = formatPrice(itemTotal - discountAmount);
+    }
+
+    cartItems.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+      const action = button.dataset.action;
+      const name = button.dataset.name;
+      if (action === 'increase') updateQuantity(name, 1);
+      if (action === 'decrease') updateQuantity(name, -1);
+      if (action === 'remove') removeItem(name);
+    });
+
+    renderCart();
+  </script>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

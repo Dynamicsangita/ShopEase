@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Orders | ShopEase</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+	<div class="promo-bar">Track every ShopEase order in one place</div>
+	<header class="navbar">
+		<div class="container nav-wrap">
+			<a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+			<ul class="nav-links">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="cart.html">Cart</a></li>
+				<li><a href="orders.html">Orders</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main class="page-shell">
+		<section class="section">
+			<div class="container orders-page">
+				<div class="orders-heading">
+					<div>
+						<span class="eyebrow">Your ShopEase journey</span>
+						<h1>Your orders</h1>
+						<p>Keep an eye on your latest purchases and delivery progress.</p>
+					</div>
+					<a class="btn primary" href="products.html"><i class="fa-solid fa-bag-shopping"></i> Shop more</a>
+				</div>
+				<div id="orders-list" class="orders-list"></div>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const catalog = {
+			'iPhone 16 Pro': [129999, 'images/iphone.jpg'], 'Samsung Galaxy A35': [28999, 'images/mobile2.png'],
+			'OnePlus Nord': [29999, 'images/mobile3.png'], 'Xiaomi Redmi': [18999, 'images/mobile4.png'],
+			'Gaming Headset': [3999, 'images/headphone.png'], 'Airbuds Pro': [2499, 'images/earbuds.png'],
+			'Luxury Perfume': [2999, 'images/perfume.png'], 'Mirrorless Camera': [54999, 'images/camera.png'],
+			'Running Sneakers': [5499, 'images/shoes.png'], 'Smart Watch Pro': [4999, 'images/watch.png'],
+			'Casual Fashion Wear': [1299, 'images/fashion.png'], 'Premium Laptop': [54999, 'images/laptop.png'],
+			'Sandal': [799, 'images/shoes.png'], 'Smart Watch': [4999, 'images/smartwatch.jpeg'],
+			'Mobile Phone': [14999, 'images/phone.jpg'], 'Fashion Wear': [1499, 'images/fashion.png'],
+			'Women Oversize': [999, 'images/shirt.jpg'], 'Lenovo Laptop': [54999, 'images/laptop2.png'],
+			'HP Laptop': [64999, 'images/laptop3.png'], 'Assus Laptop': [74999, 'images/laptop4.png'],
+			'Bluetooth Headphone': [2499, 'images/headphone.jpg'], 'Gaming Laptop': [59999, 'images/laptop.png'],
+			'iPhone 15': [79999, 'images/iphone.jpg'], 'Luxury Perfume 2': [3499, 'images/perfume2.png'],
+			'Classic Sandals': [1699, 'images/shoes.png'], 'Women Sneakers': [1299, 'images/shoe.jpg'],
+			'Premium Casual Shoes': [2799, 'images/shoeee.png'], 'Luxury Wrist Watch': [3999, 'images/watch.png'],
+			'Women Sandal': [999, 'images/sandell.png'], 'Samsung Galaxy': [24999, 'images/mobile2.png'],
+			'Xiaomi Redmi': [18999, 'images/mobile4.png'], 'OnePlus Nord': [29999, 'images/mobile3.png']
+		};
+		const money = (amount) => `\u20B9${amount.toLocaleString('en-IN')}`;
+		const formatDate = (value) => new Date(value).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+		const ordersList = document.getElementById('orders-list');
+		const orders = JSON.parse(localStorage.getItem('shopease-orders') || '[]');
+
+		if (!orders.length) {
+			ordersList.innerHTML = `<div class="orders-empty"><div class="orders-empty-icon"><i class="fa-solid fa-box-open"></i></div><h2>No orders yet</h2><p>Your confirmed purchases will appear here.</p><a class="btn primary" href="products.html">Explore products</a></div>`;
+		} else {
+			ordersList.innerHTML = orders.map((order) => {
+				const method = order.method === 'cod' ? 'Cash on delivery' : order.method === 'card' ? 'Card' : 'UPI';
+				const itemCount = order.items.reduce((sum, item) => sum + item.qty, 0);
+				const products = order.items.map((item) => {
+					const product = catalog[item.name] || [0, 'images/iphone.jpg'];
+					return `<div class="order-product"><img src="${product[1]}" alt="${item.name}"><span><strong>${item.name}</strong><small>${item.qty} x ${money(product[0])}</small></span></div>`;
+				}).join('');
+				return `<article class="order-card"><div class="order-card-top"><div><span class="order-label">Order ${order.id}</span><h2>${itemCount} ${itemCount === 1 ? 'item' : 'items'} <small>&bull; ${formatDate(order.createdAt || Date.now())}</small></h2></div><span class="order-status"><i class="fa-solid fa-circle-check"></i> Confirmed</span></div><div class="order-products">${products}</div><div class="order-card-bottom"><span><small>Paid with</small><strong>${method}</strong></span><span><small>Total paid</small><strong>${money(order.total)}</strong></span><button class="order-details-btn" type="button"><i class="fa-solid fa-chevron-down"></i> Details</button></div><div class="order-timeline"><span class="done"><i class="fa-solid fa-circle-check"></i> Confirmed</span><span><i class="fa-solid fa-box"></i> Packed</span><span><i class="fa-solid fa-truck"></i> Shipped</span><span><i class="fa-solid fa-house"></i> Delivered</span></div></article>`;
+			}).join('');
+		}
+
+		ordersList.addEventListener('click', (event) => {
+			const button = event.target.closest('.order-details-btn');
+			if (!button) return;
+			const card = button.closest('.order-card');
+			card.classList.toggle('expanded');
+			button.innerHTML = card.classList.contains('expanded') ? '<i class="fa-solid fa-chevron-up"></i> Hide details' : '<i class="fa-solid fa-chevron-down"></i> Details';
+		});
+	</script>
+	<script src="js/site.js" defer></script>
+</body>
+</html>

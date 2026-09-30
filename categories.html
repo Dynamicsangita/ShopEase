@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body {
+      background: #050505;
+      color: #f5dca2;
+    }
+
+    .cat-page {
+      max-width: 1180px;
+      margin: 30px auto 60px;
+      padding: 0 18px;
+    }
+
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.98), rgba(52, 39, 18, 0.96), rgba(12, 12, 12, 1));
+      color: #f5dca2;
+      border: 1px solid rgba(215, 169, 84, 0.2);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-panel h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #f8f1d6;
+    }
+
+    .hero-panel p {
+      opacity: 0.95;
+      color: #d9c497;
+    }
+
+    .products-section {
+      background: rgba(12, 12, 12, 0.96);
+      border: 1px solid rgba(215, 169, 84, 0.18);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      margin-top: 18px;
+      scroll-margin-top: 90px;
+      color: #f5dca2;
+    }
+
+    .products-section h2 {
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+      color: #f8f1d6;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .mini-product {
+      border: 1px solid rgba(215, 169, 84, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
+    }
+
+    .mini-product img {
+      height: 140px;
+      width: 100%;
+      object-fit: contain;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(18, 18, 18, 0.98), rgba(45, 34, 18, 0.96));
+    }
+
+    .mini-body {
+      padding: 12px;
+    }
+
+    .mini-body h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: #f8f1d6;
+    }
+
+    .mini-body p {
+      color: #f5dca2;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="cat-page">
+    <div class="hero-panel">
+      <h1>Explore by category</h1>
+      <p>Choose a category to jump into a focused collection of products.</p>
+    </div>
+
+    <div class="category-showcase">
+      <a class="showcase-card showcase-mobile" href="products.html?category=mobiles">
+        <img src="images/mobile.png" alt="Mobiles">
+        <div class="showcase-copy">
+          <span>Mobiles</span>
+          <h3>Smart phones</h3>
+        </div>
+      </a>
+
+      <a class="showcase-card showcase-laptop" href="products.html?category=laptops">
+        <img src="images/laptop.png" alt="Laptops">
+        <div class="showcase-copy">
+          <span>Laptops</span>
+          <h3>Work & play</h3>
+        </div>
+      </a>
+
+      <a class="showcase-card showcase-fashion" href="products.html?category=fashion">
+        <img src="images/fashion.png" alt="Fashion">
+        <div class="showcase-copy">
+          <span>Fashion</span>
+          <h3>Style picks</h3>
+        </div>
+      </a>
+
+      <a class="showcase-card showcase-shoes" href="products.html?category=shoes">
+        <img src="images/shoes.png" alt="Shoes">
+        <div class="showcase-copy">
+          <span>Shoes</span>
+          <h3>Everyday comfort</h3>
+        </div>
+      </a>
+
+      <a class="showcase-card showcase-watch" href="products.html?category=watches">
+        <img src="images/watch.png" alt="Watches">
+        <div class="showcase-copy">
+          <span>Watches</span>
+          <h3>Modern essentials</h3>
+        </div>
+      </a>
+
+      <a class="showcase-card showcase-beauty" href="products.html?category=beauty">
+        <img src="images/perfume.png" alt="Beauty">
+        <div class="showcase-copy">
+          <span>Beauty</span>
+          <h3>Glow & care</h3>
+        </div>
+      </a>
+    </div>
+
+    <div class="products-section">
+      <h2>Popular picks</h2>
+      <div class="product-list">
+        <div class="mini-product"><img src="images/iphone.jpg" alt="iPhone"><div class="mini-body"><h3>iPhone 16 Pro</h3><p>₹1,29,999</p></div></div>
+        <div class="mini-product"><img src="images/laptop.png" alt="Laptop"><div class="mini-body"><h3>HP Laptop</h3><p>₹59,999</p></div></div>
+        <div class="mini-product"><img src="images/fashion.png" alt="Fashion"><div class="mini-body"><h3>Style Set</h3><p>₹1,999</p></div></div>
+        <div class="mini-product"><img src="images/shoes.png" alt="Shoe"><div class="mini-body"><h3>Nike Shoes</h3><p>₹4,999</p></div></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

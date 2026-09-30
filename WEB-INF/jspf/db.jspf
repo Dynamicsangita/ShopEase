@@ -1,0 +1,53 @@
+<%@ page import="java.io.InputStream,java.nio.charset.StandardCharsets,java.security.MessageDigest,java.security.SecureRandom,java.security.spec.KeySpec,java.sql.Connection,java.sql.DriverManager,java.sql.PreparedStatement,java.sql.ResultSet,java.util.Base64,java.util.Properties,javax.crypto.SecretKeyFactory,javax.crypto.spec.PBEKeySpec" %>
+<%!
+private Properties loadDatabaseProperties(ServletContext context) throws Exception {
+    Properties properties = new Properties();
+    try (InputStream input = context.getResourceAsStream("/WEB-INF/jdbc.properties")) {
+        if (input != null) {
+            properties.load(input);
+        }
+    }
+    return properties;
+}
+
+private Connection openDatabaseConnection(ServletContext context) throws Exception {
+    Properties properties = loadDatabaseProperties(context);
+    String url = properties.getProperty("jdbc.url", System.getenv("SHOPEASE_DB_URL"));
+    String user = properties.getProperty("jdbc.user", System.getenv("SHOPEASE_DB_USER"));
+    String password = properties.getProperty("jdbc.password", System.getenv("SHOPEASE_DB_PASSWORD"));
+    if (url == null || user == null || password == null) {
+        throw new IllegalStateException("ShopEase database settings are not configured");
+    }
+    Class.forName(properties.getProperty("jdbc.driver", "com.mysql.cj.jdbc.Driver"));
+    return DriverManager.getConnection(url, user, password);
+}
+
+private String hashPassword(String password) throws Exception {
+    byte[] salt = new byte[16];
+    new SecureRandom().nextBytes(salt);
+    byte[] hash = derivePassword(password.toCharArray(), salt, 120000);
+    return "pbkdf2$120000$" + Base64.getEncoder().encodeToString(salt) + "$" + Base64.getEncoder().encodeToString(hash);
+}
+
+private boolean verifyPassword(String password, String storedValue) throws Exception {
+    String[] parts = storedValue == null ? new String[0] : storedValue.split("\\$", -1);
+    if (parts.length != 4 || !"pbkdf2".equals(parts[0])) {
+        return false;
+    }
+    int iterations = Integer.parseInt(parts[1]);
+    byte[] salt = Base64.getDecoder().decode(parts[2]);
+    byte[] expected = Base64.getDecoder().decode(parts[3]);
+    byte[] actual = derivePassword(password.toCharArray(), salt, iterations);
+    return MessageDigest.isEqual(expected, actual);
+}
+
+private byte[] derivePassword(char[] password, byte[] salt, int iterations) throws Exception {
+    KeySpec spec = new PBEKeySpec(password, salt, iterations, 256);
+    return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).getEncoded();
+}
+
+private String escapeHtml(String value) {
+    if (value == null) return "";
+    return value.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+}
+%>

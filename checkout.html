@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <div class="promo-bar">Secure checkout • Fast delivery guaranteed</div>
+
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="orders.html">Orders</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="section">
+      <div class="container checkout-layout">
+        <div class="checkout-form-card">
+          <div class="checkout-heading">
+            <span class="eyebrow">Almost yours</span>
+            <h1>Complete your order</h1>
+            <p>Enter your details and choose a secure way to pay.</p>
+          </div>
+
+          <div class="checkout-step-title"><span>1</span><h2>Delivery details</h2></div>
+          <form class="checkout-form" id="checkout-form">
+            <div class="field-group">
+              <label for="full-name">Full name</label>
+              <input id="full-name" name="fullName" type="text" placeholder="Enter your name" autocomplete="name" required>
+            </div>
+            <div class="field-group">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+            <div class="field-group">
+              <label for="phone">Mobile number</label>
+              <input id="phone" name="phone" type="tel" placeholder="+91 90000 00000" autocomplete="tel" required>
+            </div>
+            <div class="field-group">
+              <label for="address">Shipping address</label>
+              <textarea id="address" name="address" rows="4" placeholder="House no, street, city, state, PIN" autocomplete="street-address" required></textarea>
+            </div>
+
+            <div class="checkout-step-title payment-step"><span>2</span><h2>Payment method</h2></div>
+            <div class="field-group">
+              <label for="payment-method">Choose payment method</label>
+              <select id="payment-method" name="paymentMethod">
+                <option>Cash on Delivery</option>
+                <option>UPI</option>
+                <option>Debit / Credit Card</option>
+                <option>Net Banking</option>
+              </select>
+            </div>
+            <label class="secure-check"><input type="checkbox" required> <span>I agree to the terms and confirm my delivery details.</span></label>
+            <button type="submit" class="btn primary full place-order-btn">Place order <i class="fa-solid fa-arrow-right"></i></button>
+            <p class="checkout-message" id="checkout-message" role="status"></p>
+          </form>
+        </div>
+
+        <aside class="summary-panel checkout-summary">
+          <div class="summary-heading"><h2>Your order</h2><i class="fa-solid fa-bag-shopping"></i></div>
+          <div id="checkout-items" class="checkout-items"></div>
+          <div class="summary-row"><span>Subtotal</span><strong id="checkout-subtotal">₹0</strong></div>
+          <div class="summary-row"><span>Shipping</span><strong>Free</strong></div>
+          <div class="summary-row"><span>Discount</span><strong id="checkout-discount">-₹0</strong></div>
+          <div class="summary-total"><span>Total</span><strong id="checkout-total">₹0</strong></div>
+          <div class="checkout-assurance"><i class="fa-solid fa-shield-halved"></i><span><strong>Secure checkout</strong><small>Your information is protected.</small></span></div>
+          <a class="back-to-cart" href="cart.html"><i class="fa-solid fa-arrow-left"></i> Edit cart</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('shopease-cart') || '[]');
+    const catalog = {
+      'iPhone 16 Pro': [129999, 'images/iphone.jpg'], 'Samsung Galaxy A35': [28999, 'images/mobile2.png'],
+      'OnePlus Nord': [29999, 'images/mobile3.png'], 'Xiaomi Redmi': [18999, 'images/mobile4.png'],
+      'Gaming Headset': [3999, 'images/headphone.png'], 'Airbuds Pro': [2499, 'images/earbuds.png'],
+      'Luxury Perfume': [2999, 'images/perfume.png'], 'Mirrorless Camera': [54999, 'images/camera.png'],
+      'Running Sneakers': [5499, 'images/shoes.png'], 'Smart Watch Pro': [4999, 'images/watch.png'],
+      'Casual Fashion Wear': [1299, 'images/fashion.png'], 'Premium Laptop': [54999, 'images/laptop.png'],
+      'Sandal': [799, 'images/shoes.png'], 'Smart Watch': [4999, 'images/smartwatch.jpeg'],
+      'Mobile Phone': [14999, 'images/phone.jpg'], 'Fashion Wear': [1499, 'images/fashion.png'],
+      'Women Oversize': [999, 'images/shirt.jpg'], 'Lenovo Laptop': [54999, 'images/laptop2.png'],
+      'HP Laptop': [64999, 'images/laptop3.png'], 'Assus Laptop': [74999, 'images/laptop4.png'],
+      'Bluetooth Headphone': [2499, 'images/headphone.jpg'], 'Gaming Laptop': [59999, 'images/laptop.png'],
+      'iPhone 15': [79999, 'images/iphone.jpg'], 'Luxury Perfume 2': [3499, 'images/perfume2.png'],
+      'Classic Sandals': [1699, 'images/shoes.png'], 'Women Sneakers': [1299, 'images/shoe.jpg'],
+      'Premium Casual Shoes': [2799, 'images/shoeee.png'], 'Luxury Wrist Watch': [3999, 'images/watch.png'],
+      'Women Sandal': [999, 'images/sandell.png'], 'Samsung Galaxy': [24999, 'images/mobile2.png'],
+      'Xiaomi Redmi': [18999, 'images/mobile4.png'], 'OnePlus Nord': [29999, 'images/mobile3.png']
+    };
+    const money = (amount) => `₹${amount.toLocaleString('en-IN')}`;
+    const items = document.getElementById('checkout-items');
+    const subtotal = cart.reduce((sum, item) => sum + (catalog[item.name]?.[0] || 0) * item.qty, 0);
+    const discount = Math.round(subtotal * 0.1);
+    items.innerHTML = cart.length ? cart.map((item) => {
+      const product = catalog[item.name] || [0, 'images/iphone.jpg'];
+      return `<div class="checkout-item"><img src="${product[1]}" alt="${item.name}"><span><strong>${item.name}</strong><small>${item.qty} × ${money(product[0])}</small></span><b>${money(item.qty * product[0])}</b></div>`;
+    }).join('') : '<p class="checkout-empty">Your cart is empty. <a href="products.html">Browse products</a></p>';
+    document.getElementById('checkout-subtotal').textContent = money(subtotal);
+    document.getElementById('checkout-discount').textContent = `-${money(discount)}`;
+    document.getElementById('checkout-total').textContent = money(subtotal - discount);
+
+    document.getElementById('checkout-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = document.getElementById('checkout-message');
+      if (!cart.length) {
+        message.textContent = 'Your cart is empty. Add a product before placing the order.';
+        message.className = 'checkout-message error';
+        return;
+      }
+      localStorage.setItem('shopease-checkout-details', JSON.stringify({
+        name: document.getElementById('full-name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        paymentMethod: document.getElementById('payment-method').value
+      }));
+      window.location.href = 'payment.html';
+    });
+  </script>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

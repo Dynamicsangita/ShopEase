@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-brand-panel">
+      <a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+      <div><span class="eyebrow">Make it yours</span><h1>One account. Every favourite.</h1><p>Save products, track orders, and checkout faster with a ShopEase account.</p></div>
+      <div class="auth-trust"><i class="fa-solid fa-heart"></i><span><strong>Made for better shopping</strong><small>Your wishlist and orders stay in one place.</small></span></div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-card-heading"><span class="auth-icon"><i class="fa-solid fa-user-plus"></i></span><div><h2>Create your account</h2><p>It only takes a moment to get started.</p></div></div>
+      <form class="auth-form" id="register-form">
+        <div class="auth-input">
+          <label for="register-name">Full name</label>
+          <input id="register-name" type="text" placeholder="Enter full name" autocomplete="name" required>
+        </div>
+        <div class="auth-input">
+          <label for="register-email">Email address</label>
+          <input id="register-email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="auth-input">
+          <label for="register-password">Create password</label>
+          <div class="password-field"><input id="register-password" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required><button type="button" class="password-toggle" data-target="register-password" aria-label="Show password"><i class="fa-regular fa-eye"></i></button></div>
+        </div>
+        <div class="auth-input">
+          <label for="register-confirm">Confirm password</label>
+          <div class="password-field"><input id="register-confirm" type="password" placeholder="Repeat your password" autocomplete="new-password" minlength="6" required><button type="button" class="password-toggle" data-target="register-confirm" aria-label="Show password"><i class="fa-regular fa-eye"></i></button></div>
+        </div>
+        <button class="auth-btn secondary" type="submit">Create account <i class="fa-solid fa-arrow-right"></i></button>
+        <p class="auth-message" id="register-message" role="status"></p>
+        <div class="auth-links">
+          <span>Already have an account?</span><a href="login.html">Sign in</a>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll('.password-toggle').forEach((toggle) => toggle.addEventListener('click', () => {
+      const input = document.getElementById(toggle.dataset.target);
+      input.type = input.type === 'password' ? 'text' : 'password';
+      toggle.innerHTML = input.type === 'password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+    }));
+    document.getElementById('register-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const password = document.getElementById('register-password').value;
+      const confirm = document.getElementById('register-confirm').value;
+      const message = document.getElementById('register-message');
+      if (password !== confirm) { message.textContent = 'Passwords do not match. Please try again.'; message.className = 'auth-message error'; return; }
+      const existingAccount = JSON.parse(localStorage.getItem('shopease-account') || 'null');
+      const email = document.getElementById('register-email').value.trim();
+      if (existingAccount?.email === email) { message.textContent = 'An account already exists for this email. Please sign in.'; message.className = 'auth-message error'; return; }
+      const account = { name: document.getElementById('register-name').value.trim(), email, phone: '+91 90000 00000' };
+      localStorage.setItem('shopease-account', JSON.stringify({ ...account, password }));
+      localStorage.setItem('shopease-profile', JSON.stringify(account));
+      message.textContent = 'Account created. Opening your profile...'; message.className = 'auth-message success';
+      setTimeout(() => { window.location.href = 'profile.html'; }, 500);
+    });
+  </script>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

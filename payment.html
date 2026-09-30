@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Payment | ShopEase</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+	<div class="promo-bar">Protected payment &bull; Your order is almost ready</div>
+
+	<header class="navbar">
+		<div class="container nav-wrap">
+			<a class="logo" href="index.html"><i class="fa-solid fa-cart-shopping"></i> ShopEase</a>
+			<ul class="nav-links">
+	<li><a href="index.html">Home</a></li>
+	<li><a href="products.html">Products</a></li>
+	<li><a href="cart.html">Cart</a></li>
+				<li><a href="orders.html">Orders</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<main class="page-shell">
+		<section class="section">
+			<div class="container payment-layout">
+				<div class="payment-card">
+					<div class="payment-heading">
+						<span class="eyebrow">Step 3 of 3</span>
+						<h1>Choose how to pay</h1>
+						<p>Your payment details stay private and protected.</p>
+					</div>
+
+					<div class="payment-methods" role="tablist" aria-label="Payment methods">
+			<button class="payment-method active" type="button" data-method="upi"><i class="fa-solid fa-mobile-screen-button"></i><span>UPI<small>Instant</small></span></button>
+			<button class="payment-method" type="button" data-method="card"><i class="fa-regular fa-credit-card"></i><span>Card<small>Debit / Credit</small></span></button>
+			<button class="payment-method" type="button" data-method="cod"><i class="fa-solid fa-money-bill-wave"></i><span>Cash on delivery<small>Pay at your door</small></span></button>
+					</div>
+
+					<form id="payment-form" class="payment-form">
+						<div id="upi-fields" class="payment-fields active-fields">
+			  <label for="upi-id">UPI ID</label>
+			  <div class="input-with-icon"><i class="fa-solid fa-at"></i><input id="upi-id" type="text" placeholder="yourname@upi" autocomplete="off"></div>
+			  <small class="field-hint">Use a valid UPI ID such as name@bank.</small>
+						</div>
+
+						<div id="card-fields" class="payment-fields">
+							<label for="card-number">Card number</label>
+							  <div class="input-with-icon"><i class="fa-regular fa-credit-card"></i><input id="card-number" type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+							<div class="payment-inline-fields">
+								<div><label for="expiry">Expiry</label><input id="expiry" type="text" placeholder="MM / YY" maxlength="7"></div>
+								<div><label for="cvv">CVV</label><input id="cvv" type="password" inputmode="numeric" placeholder="***" maxlength="4"></div>
+							</div>
+						</div>
+						<div id="cod-fields" class="payment-fields">
+							<div class="cod-note"><i class="fa-solid fa-circle-check"></i><span><strong>Pay when your order arrives</strong><small>No online payment is needed today.</small></span></div>
+						</div>
+			<label class="payment-consent"><input type="checkbox" required> <span>I confirm this order and agree to ShopEase payment terms.</span></label>
+			<button class="btn primary full pay-button" type="submit">Pay <span id="pay-amount">&#8377;0</span> <i class="fa-solid fa-lock"></i></button>
+			<p id="payment-message" class="payment-message" role="status"></p>
+					</form>
+				</div>
+
+				<aside class="payment-summary">
+		  <div class="summary-heading"><h2>Order total</h2><i class="fa-solid fa-receipt"></i></div>
+		  <div id="payment-items" class="payment-items"></div>
+		  <div class="summary-row"><span>Subtotal</span><strong id="payment-subtotal">&#8377;0</strong></div>
+		  <div class="summary-row"><span>Discount</span><strong id="payment-discount">-&#8377;0</strong></div>
+		  <div class="summary-row"><span>Shipping</span><strong>Free</strong></div>
+		  <div class="summary-total"><span>Total</span><strong id="payment-total">&#8377;0</strong></div>
+					<div class="payment-trust"><i class="fa-solid fa-shield-halved"></i><span><strong>Safe and secure</strong><small>256-bit encrypted checkout</small></span></div>
+					<a href="checkout.html" class="back-to-cart"><i class="fa-solid fa-arrow-left"></i> Back to checkout</a>
+				</aside>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const cart = JSON.parse(localStorage.getItem('shopease-cart') || '[]');
+		const catalog = {
+			'iPhone 16 Pro': [129999, 'images/iphone.jpg'], 'Samsung Galaxy A35': [28999, 'images/mobile2.png'],
+			'OnePlus Nord': [29999, 'images/mobile3.png'], 'Xiaomi Redmi': [18999, 'images/mobile4.png'],
+			'Gaming Headset': [3999, 'images/headphone.png'], 'Airbuds Pro': [2499, 'images/earbuds.png'],
+			'Luxury Perfume': [2999, 'images/perfume.png'], 'Mirrorless Camera': [54999, 'images/camera.png'],
+			'Running Sneakers': [5499, 'images/shoes.png'], 'Smart Watch Pro': [4999, 'images/watch.png'],
+			'Casual Fashion Wear': [1299, 'images/fashion.png'], 'Premium Laptop': [54999, 'images/laptop.png'],
+			'Sandal': [799, 'images/shoes.png'], 'Smart Watch': [4999, 'images/smartwatch.jpeg'],
+			'Mobile Phone': [14999, 'images/phone.jpg'], 'Fashion Wear': [1499, 'images/fashion.png'],
+			'Women Oversize': [999, 'images/shirt.jpg'], 'Lenovo Laptop': [54999, 'images/laptop2.png'],
+			'HP Laptop': [64999, 'images/laptop3.png'], 'Assus Laptop': [74999, 'images/laptop4.png'],
+			'Bluetooth Headphone': [2499, 'images/headphone.jpg'], 'Gaming Laptop': [59999, 'images/laptop.png'],
+			'iPhone 15': [79999, 'images/iphone.jpg'], 'Luxury Perfume 2': [3499, 'images/perfume2.png'],
+			'Classic Sandals': [1699, 'images/shoes.png'], 'Women Sneakers': [1299, 'images/shoe.jpg'],
+			'Premium Casual Shoes': [2799, 'images/shoeee.png'], 'Luxury Wrist Watch': [3999, 'images/watch.png'],
+			'Women Sandal': [999, 'images/sandell.png'], 'Samsung Galaxy': [24999, 'images/mobile2.png'],
+			'Xiaomi Redmi': [18999, 'images/mobile4.png'], 'OnePlus Nord': [29999, 'images/mobile3.png']
+		};
+		const money = (amount) => `\u20B9${amount.toLocaleString('en-IN')}`;
+		const subtotal = cart.reduce((sum, item) => sum + (catalog[item.name]?.[0] || 0) * item.qty, 0);
+		const discount = Math.round(subtotal * 0.1);
+		const total = subtotal - discount;
+		document.getElementById('payment-subtotal').textContent = money(subtotal);
+		document.getElementById('payment-discount').textContent = `-${money(discount)}`;
+		document.getElementById('payment-total').textContent = money(total);
+		document.getElementById('pay-amount').textContent = money(total);
+		document.getElementById('payment-items').innerHTML = cart.length ? cart.map((item) => {
+			const product = catalog[item.name] || [0, 'images/iphone.jpg'];
+			return `<div class="payment-item"><img src="${product[1]}" alt="${item.name}"><span><strong>${item.name}</strong><small>${item.qty} x ${money(product[0])}</small></span></div>`;
+		}).join('') : '<p class="checkout-empty">Your cart is empty. <a href="products.html">Browse products</a></p>';
+
+		const methods = document.querySelectorAll('.payment-method');
+		const fields = document.querySelectorAll('.payment-fields');
+		methods.forEach((method) => method.addEventListener('click', () => {
+			methods.forEach((item) => item.classList.toggle('active', item === method));
+			fields.forEach((field) => field.classList.toggle('active-fields', field.id === `${method.dataset.method}-fields`));
+		}));
+
+		document.getElementById('payment-form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const activeMethod = document.querySelector('.payment-method.active').dataset.method;
+			const message = document.getElementById('payment-message');
+			if (!cart.length) {
+				message.textContent = 'Your cart is empty. Add a product before paying.';
+				message.className = 'payment-message error';
+				return;
+			}
+			message.textContent = activeMethod === 'cod' ? 'Order confirmed. Pay when your order arrives.' : 'Payment successful. Your order has been confirmed.';
+			message.className = 'payment-message success';
+			const order = { id: `SE${Date.now().toString().slice(-6)}`, total, items: cart, method: activeMethod, createdAt: Date.now() };
+			const orders = JSON.parse(localStorage.getItem('shopease-orders') || '[]');
+			orders.unshift(order);
+			localStorage.setItem('shopease-orders', JSON.stringify(orders));
+			localStorage.setItem('shopease-last-order', JSON.stringify(order));
+			localStorage.removeItem('shopease-cart');
+			event.target.querySelector('button[type="submit"]').disabled = true;
+		});
+	</script>
+	<script src="js/site.js" defer></script>
+</body>
+</html>
